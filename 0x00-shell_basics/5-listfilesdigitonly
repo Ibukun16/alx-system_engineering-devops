@@ -1,3 +1,3 @@
 #!/bin/bash
-ln
+ln -s /0x00-shel_basics /0x000-shell_basicsymbs
 ls -al
