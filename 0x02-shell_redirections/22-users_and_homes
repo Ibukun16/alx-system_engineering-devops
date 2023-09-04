@@ -1,2 +1,2 @@
 #1/bin/bash
-cut -d ':' -fi,6 /etc/passwd
+cut -d':' -fi,6 /etc/passwd
