@@ -1,2 +1,2 @@
-#1/bin/bash
+#!/bin/bash
 cut -d':' -fi,6 /etc/passwd
