@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#This script is displaying "Best School" 10 times but display "hi"
+#on new line that follows line 9.
+
+i=0
+while (( "$i"<10 ))
+do
+	echo "Best School"
+	(( i += 1 ))
+	if (( "$i" == 9 ))
+	then
+		echo "Hi"
+	fi
+done 
