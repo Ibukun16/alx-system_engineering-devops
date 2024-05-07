@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#This Bash script groups visitors to a website by IP
+#and HTTP status code, and display the data in the ffg format:
+#	OCCURENCE_NUMBER IP HTTP_CODE
+#	list format.
+#	Ordered from the greatest to the lowest number of
+#	Occurence using "awk" command.
+
+awk '{ print $1 " " $9}' apache-access.log | sort | uniq -c | sort -rn

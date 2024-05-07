@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#This Bash script displays the content of a file with the ffg conditions:
+#	Display username
+#	Display user id
+#	Display Home directory path for the user
+
+while read -r passwd;
+do
+	echo "$passwd" | cut -d ':' -f1,3,6
+done < "/etc/passwd"
