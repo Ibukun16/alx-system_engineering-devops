@@ -1,0 +1,1 @@
+ This folder contains practice exercises for mastering regular expressions. This is one of the key knowledge areas as an aspiring DevOps system engineering. It is also one of the major projects in ALX SE training program.
