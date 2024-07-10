@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# A script that conffigures Nginx so that HTTP response contains a custom header (on web-01 and web-02)
+# The name of the custom HTTP header must be X-Served-By
+#The value of the custom HTTP header must be hostname of the server Nginx is running on
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y install nginx
+
+# configure firewall to allow request through port 80
+sudo ufw allow 'Nginx HTTP'
+
+sudo mkdir -p /var/www/html
+
+# change the permission to enable us create files in this directory easily
+sudo chmod -R 775 /var/www
+
+# create the index page
+echo 'Hello World!' |sudo tee /var/www/html/index.nginx-debian.html
+
+# create a webpage for error 404 message
+echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/404.html
+
+# code  to configure redirect for a single page(/redirect_me) and add header to display hostname
+string_for_replacement="server_name _;\n\tadd_header X-Served-By \$hostname;\n\trewrite ^\/redirect_me https:\/\/www.blog.balsamngilead.com permanent;"
+sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
+
+# code to configure redirect for 404 error page
+string_for _replacement="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/html;\n\t\tinternal;\n\t}"
+sudo sed -i "s/listen 80 default_server;/$string_for_replacement/" /etc/nginx/sites-enabled/default
+
+#restart the web server after updating the settings
+sudo service nginx restart
