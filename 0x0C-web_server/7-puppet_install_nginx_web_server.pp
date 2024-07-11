@@ -10,6 +10,10 @@
 # The page must return an HTTP 404 error code
 # The page must contain the string Ceci n'est pas une page
 
+package {'nginx':
+  ensure => 'present',
+}
+
 exec {'install':
   command  => 'sudo apt-get update ; sudo apt-get -y install nginx',
   provider => shell,
