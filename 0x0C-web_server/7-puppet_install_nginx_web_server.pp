@@ -24,7 +24,7 @@ exec {'Hello':
   provider => shell,
 }
 
-exec {'sudo sed -i "s/listen 80 default_server;/listen 80 default_server;\\n\\tlocation \/redirect_me {\\n\\t\\treturn 301 https:\/\/https:\/\/www.jw.org\/en\/library\/videos\/intros-for-the-ministry\/jehovahs-witnesses-who-are-we-intro\/;\\n\\t}/" /etc/nginx/sites-available/default':
+exec {'sudo sed -i "s/listen 80 default_server;/listen 80 default_server;\\n\\tlocation \/redirect_me {\\n\\t\\treturn 301 https:\/\/www.jw.org\/en\/library\/videos\/intros-for-the-ministry\/jehovahs-witnesses-who-are-we-intro\/;\\n\\t}/" /etc/nginx/sites-enabled/default':
   provider => shell,
 }
 
