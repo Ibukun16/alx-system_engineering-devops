@@ -21,10 +21,13 @@ sudo chown -R "$USER":"$USER" /var/www/html
 sudo chmod -R 755 /var/www
 
 # Backup default index
-cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp redirect_me
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
 
 # Creating new index
 echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
+
+# Creating redirect_me index
+echo -e "https://www.jw.org/en/library/videos/intros-for-the-ministry/jehovahs-witnesses-who-are-we-intro" > /var/www/html/redirect_me.html
 
 # Setting up /redirect_me to jw.org page video
 use_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.jw.org\/en\/library\/videos\/intros-for-the-ministry\/jehovahs-witnesses-who-are-we-intro permanent;"
