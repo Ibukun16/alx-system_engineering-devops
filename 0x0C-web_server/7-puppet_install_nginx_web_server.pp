@@ -1,10 +1,4 @@
 # Puppet manifest to automate the installation of nginx 
-# Install nginx server on ubuntu web-01 server
-# Nginx should be listening on port 80
-# Return a page that contains "Hello World" when querying
-# Nginx at its root with Get request using curl
-# Configure your Nginx server so that /redirect_me is redirecting to another page.
-# The redirection must be a “301 Moved Permanently”
 
 package { 'nginx':
   ensure => 'installed',
