@@ -10,26 +10,33 @@
 # The page must return an HTTP 404 error code
 # The page must contain the string Ceci n'est pas une page
 
-package {'nginx':
-  ensure => 'present',
-}
-
-exec {'install':
+exec { 'install':
   command  => 'sudo apt-get update ; sudo apt-get -y install nginx',
   provider => shell,
 
 }
 
-exec {'Hello':
-  command  => 'echo "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html',
+package { 'nginx':
+  ensure => 'installed',
+}
+
+file_line { 'installed':
+  ensure => 'present',
+  path   => '/etc/nginx/sites-enabled/default',
+  after  => 'listen 80 default_server;',
+  line   => 'rewrite ^/redirect_me https://www.jw.org/en/library/videos/intros-for-the-ministry/jehovahs-witnesses-who-are-we-intro permanent;'
+}
+
+file { 'var/www/html/index.html':
+  content => 'Hello World!',
+}
+
+exec { 'run':
+  command  => 'sudo service nginx start',
   provider => shell,
 }
 
-exec {'sudo sed -i "s/server_name _;/server_name _;\n\trewrite ^\/redirect_me https:\/\/www.jw.org\/en\/library\/videos\/intros-for-the-ministry\/jehovahs-witnesses-who-are-we-intro permanent;" /etc/nginx/sites-enabled/default':
-  provider => shell,
-}
-
-exec {'run':
-  command  => 'sudo service nginx restart',
-  provider => shell,
+service { 'nginx':
+  ensure  => running,
+  require => Package['nginx'],
 }
