@@ -10,22 +10,16 @@
 # The page must return an HTTP 404 error code
 # The page must contain the string Ceci n'est pas une page
 
-exec { 'install':
+exec {'install':
   command  => 'sudo apt-get update ; sudo apt-get -y install nginx',
   provider => shell,
-
 }
 
-package { 'nginx':
+package {'nginx':
   ensure => 'installed',
 }
 
-exec { 'Hello':
-  command  => 'echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html',
-  provider => shell,
-}
-
-file { 'var/www/html/index.html':
+file {'var/www/html/index.nginx-debian.html':
   ensure  => 'present'
   content => 'Hello World!',
 }
