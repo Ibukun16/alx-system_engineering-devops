@@ -19,20 +19,15 @@ exec {'install':
   provider => shell,
 }
 
-package {'nginx':
-  ensure => 'installed',
-}
+exec {'Hello':
+  command  => 'echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html',
+  provider => shell,
 
-file {'var/www/html/index.nginx-debian.html':
-  ensure  => 'present'
-  content => 'Hello World!',
-}
-
-exec {'sudo sed -i "s/listen 80 default_server;/listen 80 default_server;\\n\\tlocation \/redirect_me {\\n\\t\\treturn 301 https:\/\/www.jw.org\/en\/library\/videos\/intros-for-the-ministry/jehovahs-witnesses-who-are-we-intr\o/\/;\\n\\t}/" /etc/nginx/sites-enabled/default':
+exec {'sudo sed -i "s/listen 80 default_server;/listen 80 default_server;\\n\\tlocation \/redirect_me {\\n\\t\\treturn 301 https:\/\/www.jw.org\/en\/library\/videos\/intros-for-the-ministry/jehovahs-witnesses-who-are-we-intro\/;\\n\\t}/" /etc/nginx/sites-enabled/default':
   provider => shell,
 }
 
-exec { 'run':
+exec {'run':
   command  => 'sudo service nginx restart',
   provider => shell,
 }
