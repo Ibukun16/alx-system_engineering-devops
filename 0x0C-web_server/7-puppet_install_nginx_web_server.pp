@@ -3,34 +3,29 @@
 # Return a page that contains "Hello World" when querying
 # Nginx at its root with Get request using curl
 # Configure your Nginx server so that /redirect_me is redirecting to another page.
-# The redirection must be a “301 Moved Permanently”
+# The redirection must be a “301 Moved Permanent
 
 
-exec { 'apt-get-update':
-  command => '/usr/bin/apt-get update',
+package {'nginx':
+  ensure => 'present',
 }
 
-package { 'nginx':
-  ensure => 'installed',
+exec {'install':
+  command  => 'sudo apt-get update ; sudo apt-get -y install nginx',
+  provider => shell,
+
 }
 
-service { 'nginx':
-  ensure  => 'running',
-  require => file_line['perform a redirection'],
+exec {'Hello':
+  command  => 'echo "Hello World!" | sudo tee /var/www/html/index.html',
+  provider => shell,
 }
 
-file { '/var/www/html/index.nginx-debian.html':
-  ensure  => 'present',
-  content => 'Hello World!',
-  require => Package['nginx']
+exec {'sudo sed -i "s/listen 80 default_server;/listen 80 default_server;\\n\\tlocation \/redirect_me {\\n\\t\\treturn 301 https:\/\/github.com\/Ibukun16;\\n\\t}/" /etc/nginx/sites-available/default':
+  provider => shell,
 }
 
-file_line { 'perform a redirection':
-  ensure  => 'present',
-  path    => '/etc/nginx/sites-enabled/default',
-  after   => 'listen 80 default_server;',
-  line    => 'rewrite ^/redirect_me/$ https://www.jw.org/en/library/videos/intros-for-the-ministry/jehovahs-witnesses-who-are-we-intro permanent;',
-  after   => 'root /var/www/html;',
-  require => Package['nginx'],
-  notify  => Service['nginx'],
+exec {'run':
+  command  => 'sudo service nginx restart',
+  provider => shell,
 }
