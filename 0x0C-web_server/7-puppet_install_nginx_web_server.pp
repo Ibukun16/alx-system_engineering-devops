@@ -20,13 +20,6 @@ package { 'nginx':
   ensure => 'installed',
 }
 
-file_line { 'installed':
-  ensure => 'present',
-  path   => '/etc/nginx/sites-enabled/default',
-  after  => 'listen 80 default_server;',
-  line   => 'rewrite ^/redirect_me https://www.jw.org/en/library/videos/intros-for-the-ministry/jehovahs-witnesses-who-are-we-intro permanent;'
-}
-
 exec { 'Hello':
   command  => 'echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html',
   provider => shell,
@@ -44,9 +37,4 @@ exec {'sudo sed -i "s/listen 80 default_server;/listen 80 default_server;\\n\\tl
 exec { 'run':
   command  => 'sudo service nginx restart',
   provider => shell,
-}
-
-service { 'nginx':
-  ensure  => running,
-  require => Package['nginx'],
 }
