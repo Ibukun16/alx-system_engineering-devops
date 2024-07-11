@@ -14,6 +14,7 @@ sudo service nginx start
 
 # allowing nginx over firewall
 ufw allow 'Nginx HTTP'
+
 # Assign ownership of website files to the user for easy editing
 sudo chown -R "$USER":"$USER" /var/www/html
 sudo chmod -R 755 /var/www

@@ -8,7 +8,7 @@
 
 echo -e "Updating and Installing Nginx.\n"
 sudo apt-get update -y -qq && sudo apt-get install nginx -y
-
+sudo apt-get install ufw -y
 echo -e "\nMaking some minor settings update.\n"
 
 # starting nginx service
@@ -16,19 +16,19 @@ sudo service nginx start
 
 # allowing nginx over firewall
 ufw allow 'Nginx HTTP'
-
 # Assign ownership of website files to the user for easy editing
 sudo chown -R "$USER":"$USER" /var/www/html
 sudo chmod -R 755 /var/www
 
 # Backup default index
-cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp redirect_me
 
 # Creating new index
 echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
 
-# Setting up /redirect_me to a jw.org  page
-sudo sed -i '24i\	rewrite ^/redirect_me https://www.jw.org/en/bible-teachings/science/ permanent;' /etc/nginx/sites-available/default
+# Setting up /redirect_me to jw.org page video
+use_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.jw.org\/en\/library\/videos\/intros-for-the-ministry\/jehovahs-witnesses-who-are-we-intro permanent;"
+sudo sed -i "s/server_name _;/$use_for_replacement/" /etc/nginx/sites-enabled/default
 
 # Restarting nginx
 sudo service nginx restart

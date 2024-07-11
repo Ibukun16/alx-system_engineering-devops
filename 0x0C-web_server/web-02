@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-# Bash script that uses ssh to connect to my local server using the private
-# key ~/.ssh/school with the user ubuntu
-# using eval agent to login into the web server
+# Bash script that access my Nginx server
 
-eval $("ssh-agent")
-ssh-add ~/.ssh/school
-ssh ubuntu@100.25.167.156
+cd /etc/nginx/sites-enabled
