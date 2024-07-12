@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Bash script that uses ssh to connect to my local server using the private
+# key ~/.ssh/school with the user ubuntu
+# setting up my SSH-agent
+eval $("ssh-agent")
+
+# add path to IdentifyFile
+ssh-add ~/.ssh/school
+
+# Username and IP Address
+ssh ubuntu@100.25.167.156
