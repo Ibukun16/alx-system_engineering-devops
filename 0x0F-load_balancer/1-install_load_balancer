@@ -9,22 +9,11 @@
 
 echo -e "Updating and doing server configuration checks...\n"
 
-function install() {
-	command -v "$1" &> /dev/null
 
-	#shellcheck disable=SC2181
-
-	if [ $? -ne 0 ]; then
-		echo -e "	Installing: $1\n"
-		sudo apt-get install software-properties-common
-		sudo add-apt-repository ppa:vbernat/haproxy-3.0
-		sudo apt-get update -y -qq && sudo apt-get install -y "$1" -qq
-		echo -e "\n"
-	else
-		echo -e "	${1} is already installed.\n"
-	fi
-
-}
+sudo apt-get -y install software-properties-common
+sudo add-apt-repository ppa:vbernat/haproxy
+sudo apt-get -y update
+sudo apt-get -y install haproxy
 
 # Install haproxy
 sudo apt-get install haproxy
@@ -33,10 +22,6 @@ echo -e "\nSetting up configurations for HAproxy.\n"
 
 # Backup default server configuration settings on HAproxy
 sudo cp -a /etc/haproxy/haproxy.cfg{,.bckup}
-
-# Append port for listening to HAproxy configuration file
-add_string="mode 660 level admin/ expose-fd listener"
-sed -i "s/mode 660 level admin/$add_string/" /etc/haproxy/haproxy.cfg
 
 # Edit configuration file
 server_config=\
@@ -60,8 +45,5 @@ echo "ENABLED=1" >> /etc/default/haproxy
 # Test the configuration for HAproxy
 sudo haproxy -c -f /etc/haproxy/haproxy.cfg
 
-if [ "$(pgrep -c haproxy)" -le 0 ]; then
-	sudo service haproxy start
-else
-	sudo service haproxy restart
-fi
+# Restart the Nginx service
+sudo service haproxy restart

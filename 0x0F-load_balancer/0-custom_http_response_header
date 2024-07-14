@@ -4,9 +4,7 @@
 #The value of the custom HTTP header must be hostname of the server Nginx is running on
 echo -e "Updating and Installing Nginx.\n"
 sudo apt-get -y update
-sudo apt-get -y upgrade
 sudo apt-get -y install nginx
-sudo apt-get -y install ufw
 echo -e "\nAdjusting settings to accommodate update.\n"
 
 # configure firewall to allow request through port 80
@@ -41,6 +39,7 @@ sudo sed -i "s/listen 80 default_server;/$string_for_error/" /etc/nginx/sites-en
 
 # Testing configurations for syntax error
 sudo nginx -t
+
 # restart the web server after updating the settings
 sudo service nginx restart
 
