@@ -8,16 +8,8 @@
 # Installing and configure HAproxy Load balancer on my lb-01 server
 
 echo -e "Updating and doing server configuration checks...\n"
-
-
-sudo apt-get -y install software-properties-common
-sudo add-apt-repository ppa:vbernat/haproxy
 sudo apt-get -y update
 sudo apt-get -y install haproxy
-
-# Install haproxy
-sudo apt-get install haproxy
-
 echo -e "\nSetting up configurations for HAproxy.\n"
 
 # Backup default server configuration settings on HAproxy
