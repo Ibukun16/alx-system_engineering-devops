@@ -10,12 +10,15 @@ echo -e "\nAdjusting settings to accommodate update.\n"
 # configure firewall to allow request through port 80
 sudo ufw allow 'Nginx HTTP'
 
-# Create html file in var 
-sudo mkdir -p /var/www/html
-
 # change the permission to enable us create files in this directory easily
-sudo chown -R "$USER":"$USER" /var/www/html
-sudo chmod -R 775 /var/www
+if [ -d "/var/www" ]; then
+	sudo chown -R "$USER":"$USER" /var/www/
+	sudo chmod -R 775 /var/www
+else
+	sudo mkdir -p /var/www
+	sudo chown -R "$USER":"$USER" /var/www/
+        sudo chmod -R 775 /var/www
+fi
 
 # create the index page
 echo "Hello World!" |sudo tee /var/www/html/index.nginx-debian.html
@@ -26,9 +29,6 @@ echo -e "https://github.com/Ibukun16" > /var/www/html/redirect_me.html
 # create a webpage for error 404 message
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/error_404.html
 
-# Creating a custom response header
-sudo sed -i "s/server_name _;/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default
-
 # code  to configure redirect for a single page(redirect_me) and add header to display hostname
 use_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/Ibukun16 permanent;"
 sudo sed -i "s/server_name _;/$use_for_replacement/" /etc/nginx/sites-enabled/default
@@ -36,6 +36,9 @@ sudo sed -i "s/server_name _;/$use_for_replacement/" /etc/nginx/sites-enabled/de
 # code for custom 404 error page
 string_for_error="listen 80 default_server;\n\terror_page 404 \/error_404.html;\n\tlocation = \/error_404.html {\n\t\troot \/var\/www\/html;\n\tinternal;\n\t}"
 sudo sed -i "s/listen 80 default_server;/$string_for_error/" /etc/nginx/sites-enabled/default
+
+# Creating a custom response header
+sudo sed -i "/server_name _;/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default
 
 # Testing configurations for syntax error
 sudo nginx -t
