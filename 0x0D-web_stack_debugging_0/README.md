@@ -1,0 +1,1 @@
+Web stack debbuging is an essential knowledge for an aspiring full stack engineer because, most time computer softwares don't work the way we want them to work. This folder contains practise tasks on debugging
