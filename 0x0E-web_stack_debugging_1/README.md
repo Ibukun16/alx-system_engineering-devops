@@ -1,0 +1,1 @@
+This project is the second in the series of web stack debugging project to test the skill of an aspiring devops engineer in the area of troubleshooting and debugging issues that prevent a web program from running as intended. This is an essential skill for an aspiring devops engineer
