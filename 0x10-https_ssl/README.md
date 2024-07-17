@@ -1,0 +1,1 @@
+HTTPS SSL is a module in the ALX SE program that focuses on equipping and aspiring system DevOps engineer the necessary skills about HTTPS and SSL. The module provides the knowledge and skills necessary to understand and implement secure communication on the web. It covers topics like DNS, web stack debugging, SSL termination, and HAProxy SSL termination.
