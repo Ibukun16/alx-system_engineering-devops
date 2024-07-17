@@ -12,5 +12,5 @@ if [ "$#" -eq 1 ]; then
     domain_information "$1" "web-01"
     domain_information "$1" "web-02"
 elif [ "$#" -eq 2 ]; then
-    domain_information "$1" "$2"
+    domain_information "$2.$1" "$2"
 fi
