@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Creating a certificate using certbot and configuring HAproxy to accept
+# encrypted traffic for your subdomain www.
+
