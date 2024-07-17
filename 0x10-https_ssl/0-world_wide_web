@@ -7,7 +7,7 @@ domain_information() {
     local subdomain="$2"
     local line
     line=$(dig "$subdomain"."$domain" | awk '/ANSWER SECTION:/ {getline; print; getline; print}')
-    echo "$subdomain $line" | awk '{print "The subdomain $1 is a $2 record and points to $3\n"}'
+    echo "$subdomain $line" | awk '{print "The subdomain" $1 "is a" $2 "record and points to" $3}'
 }
 
 if [ "$#" -eq 1 ]; then
