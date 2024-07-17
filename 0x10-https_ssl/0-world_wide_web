@@ -7,10 +7,10 @@ domain_information() {
 }
 
 if [ "$#" -eq 1 ]; then
-    domain_information "$1" "www"
-    domain_information "$1" "lb-01"
-    domain_information "$1" "web-01"
-    domain_information "$1" "web-02"
+    domain_information "www.$1" "www"
+    domain_information "lb-01.$1" "lb-01"
+    domain_information "web-01.$1" "web-01"
+    domain_information "web-02.$1" "web-02"
 elif [ "$#" -eq 2 ]; then
     domain_information "$2.$1" "$2"
 fi
