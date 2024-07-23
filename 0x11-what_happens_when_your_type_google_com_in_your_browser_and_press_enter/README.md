@@ -1,0 +1,1 @@
+This task is to test an SE engineer understanding of how the internet, browser, DNS, TCP/IP, Firewall, HTTPS/SSL, Load-balancer, Web server, Application server and Database synchronize and work together.
