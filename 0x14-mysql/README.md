@@ -1,0 +1,1 @@
+This repository contains guide on how to install and integrate MySQL to web server. In the practise exercises contain in this repository, MySQL was integerated to web-01 server. Please come along with me on this journey
