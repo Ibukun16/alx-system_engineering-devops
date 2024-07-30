@@ -16,7 +16,7 @@ if __name__ == "__main__":
     todoURL = empURL + '/todos'
 
     responsename = sessionquest.get(empURL)
-    EMPLOYEE_NAME = responsename.json()['name']
+    EMPLOYEE_NAME = responsename.json()['username']
 
     responsetodo = sessionquest.get(todoURL)
     tasks = responsetodo.json()
