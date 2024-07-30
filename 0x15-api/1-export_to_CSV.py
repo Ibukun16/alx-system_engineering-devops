@@ -32,8 +32,9 @@ if __name__ == "__main__":
             done.append(task)
             completeTasks += 1
 
-    print("Employee {} is done with tasks({}/{}):".
-          format(empNAME, completeTasks, len(tasks)))
+    employeeCSV = empID + '.csv'
 
-    for task in done:
-        print("\t {}".format(task.get('title')))
+    with open(employeeCSV, "w", newline='') as filecsv:
+        writer = csv.writer(filecsv, delimiter=',', quoting=csv.QUOTE_ALL)
+        for t in tasks:
+            writer.writerow([empID, empNAME, t.get('completed'), t.get('title')])
