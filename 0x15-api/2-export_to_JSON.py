@@ -11,20 +11,20 @@ from sys import argv
 
 if __name__ == "__main__":
     sessionquest = requests.Session()
-    userID = argv[1]
+    empID = argv[1]
     baseURL = 'https://jsonplaceholder.typicode.com/users'
-    empURL = baseURL + '/' + userID
+    empURL = baseURL + '/' + empID
     todoURL = empURL + '/todos'
 
     responsename = sessionquest.get(empURL)
-    userNAME = responsename.json()['name']
+    empNAME = responsename.json()['name']
 
     responsetodo = sessionquest.get(todoURL)
     tasks = responsetodo.json()
 
-    with open("{}.json".format(userID), 'w') as user_id:
-        json.dump({userID: [{
+    with open("{}.json".format(empID), 'w') as user_id:
+        json.dump({empID: [{
             "task": task.get('title'),
             "completed": task.get('completed'),
-            "username": userNAME
+            "username": empNAME
             } for task in tasks]}, user_id)
