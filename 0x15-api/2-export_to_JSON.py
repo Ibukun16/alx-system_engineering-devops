@@ -18,9 +18,9 @@ if __name__ == "__main__":
     tasks = requests.get('https://jsonplaceholder.typicode.com/todos?userId={}'
                          .format(argv[1])).json()
 
-    with open("{}.json".format(userID), "w") as userid:
+    with open("{}.json".format(userID), "w") as USER_ID:
         json.dump({userID: [{
                 "task": task.get('title'),
                 "completed": task.get('completed'),
                 "username": userNAME.get('username')
-            } for task in tasks]}, userid)
+            } for task in tasks]}, USER_ID)
