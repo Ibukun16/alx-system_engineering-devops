@@ -26,7 +26,7 @@ if __name__ == "__main__":
     done = []
 
     for task in tasks:
-        if task['completed'] is True:
+        if task['completed']:
             done.append(task)
             donetasks += 1
 
