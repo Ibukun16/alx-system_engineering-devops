@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """A script that uses a given REST API for an employee ID
-and returns information about his/her TODO list progress
+and returns information about his/her TODO list progress,
+then export the data in the json format
 """
 
 import json
@@ -9,28 +10,14 @@ from sys import argv
 
 
 if __name__ == "__main__":
-    sessionquest = requests.Session()
-    empID = argv[1]
-    baseURL = 'https://jsonplaceholder.typicode.com/users'
-    empURL = baseURL + '/' + empID
-    todoURL = empURL + '/todos'
-
-    responsename = sessionquest.get(empURL)
-    empNAME = responsename.json()['name']
-
-    responsetodo = sessionquest.get(todoURL)
-    tasks = responsetodo.json()
-
-    completeTasks = 0
-    done = []
-
-    for task in tasks:
-        if task['completed']:
-            done.append(task)
-            completeTasks += 1
-
-    print("Employee {} is done with tasks({}/{}):".
-          format(empNAME, completeTasks, len(tasks)))
-
-    for task in done:
-        print("\t {}".format(task.get('title')))
+    fname = "todo_all_employees.json"
+    todos = requests.get('https://jsonplaceholder.typicode.com/todos').json()
+    userid = requests.get('https://jsonplaceholder.typicode.com/users/').json()
+    with open(fname, mode='w') as filename:
+        d = {i.get("id"): [{"username": i.get("username"),
+                           "task": task.get("title"),
+                            "completed": task.get("completed")} for task
+                           in todos
+                           if i.get('id') == task.get('userId')]
+             for i in userid}
+        json.dump(d, filename)
