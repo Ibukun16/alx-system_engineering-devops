@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """A script that uses a given REST API for an employee ID
-and returns information about his/her TODO list progress
+and returns information about his/her TODO list progress,
+then export the data in JSON format
 """
 
 import json
@@ -21,14 +22,17 @@ if __name__ == "__main__":
     responsetodo = sessionquest.get(todoURL)
     tasks = responsetodo.json()
 
-    dictionary = {USER_ID: []}
-    for task in tasks:
-        dictionary[USER_ID].append({
-            "task": task.get('title'),
-            "completed": task.get('completed'),
-            "username": userNAME
-        })
+    completeTasks = []
+    dictionary = {}
 
+    for task in tasks:
+        completeTasks.append(
+                {
+                    "task": task.get('title'),
+                    "completed": task.get('completed'),
+                    "username": userNAME,
+                })
+    dictionary[USER_ID] = completeTasks
     jsonfile = USER_ID + ".json"
     with open(jsonfile, 'w') as filename:
         json.dump(dictionary, filename)
