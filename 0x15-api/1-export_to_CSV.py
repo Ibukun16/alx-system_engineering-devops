@@ -37,4 +37,5 @@ if __name__ == "__main__":
     with open(employeeCSV, "w", newline='') as filecsv:
         writer = csv.writer(filecsv, delimiter=',', quoting=csv.QUOTE_ALL)
         for t in tasks:
-            writer.writerow([empID, empNAME, t.get('completed'), t.get('title')])
+            writer.writerow([empID, empNAME, t.get('completed'),
+                            t.get('title')])
