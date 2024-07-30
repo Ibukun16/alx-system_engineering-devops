@@ -21,16 +21,16 @@ if __name__ == "__main__":
     responsetodo = sessionquest.get(todoURL)
     tasks = responsetodo.json()
 
-    donetasks = 0
-    totaltasks = len(tasks)
+    complete = 0
+    total_tasks = 0
     done = []
 
     for task in tasks:
-        if task['completed']:
+        if task['completed'] is True:
             done.append(task)
-            donetasks += 1
+            complete += 1
 
-    print("Employee {} is done with tasks({}/{}):".
+    print("Employee {} is done with tasks({}/{}):"
           format(empNAME, donetasks, totaltasks))
 
     for task in done:
