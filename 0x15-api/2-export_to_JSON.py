@@ -4,7 +4,6 @@ to obtain information about an employee TODO list then export the
 data in the CSV format.
 """
 
-import csv
 import json
 import requests
 from sys import argv
