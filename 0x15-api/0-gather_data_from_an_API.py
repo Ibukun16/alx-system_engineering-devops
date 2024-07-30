@@ -16,23 +16,23 @@ if __name__ == "__main__":
     todoURL = empURL + '/todos'
 
     responsename = sessionquest.get(empURL)
-    empNAME = responsename.json()['username']
+    empNAME = responsename.json()['name']
 
     responsetodo = sessionquest.get(todoURL)
     tasks = responsetodo.json()
 
-    number_of_done_tasks = 0
-    total_number_of_tasks = len(tasks)
+    donetasks = 0
+    totaltasks = len(tasks)
     done = []
 
     for task in tasks:
         if task['completed']:
             done.append(task)
-            number_of_done_tasks += 1
+            donetasks += 1
 
     print("Employee {} is done with tasks({}/{}):".
-          format(empNAME, number_of_done_tasks, total_number_of_tasks))
+          format(empNAME, donetasks, totaltasks))
 
     for task in done:
-        task_title = task.get('title')
-        print("\t {}".format(task_title))
+        tasktitle = task.get('title')
+        print("\t {}".format(tasktitle))
