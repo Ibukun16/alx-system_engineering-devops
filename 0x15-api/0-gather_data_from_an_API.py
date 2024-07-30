@@ -9,28 +9,27 @@ from sys import argv
 
 
 if __name__ == "__main__":
-
-    session_quest = requests.Session()
-
     empID = argv[1]
-    empURL = 'https://jsonplaceholder.typicode.com/users/{}'.format(empID)
-    todoURL = 'https://jsonplaceholder.typicode.com/users/{}/todos'.format(empID)
+    baseURL = 'https://jsonplaceholder.typicode.com/users'
+    empURL = baseURL + '/' + empID
+    todoURL = empURL + '/todos'
 
-    responsename = session_quest.get(empURL)
-    empNAME = responsename.json()['name']
+    responsename = requests.get(empURL)
+    empNAME = responsename.json().get('name')
 
-    responsetodo = session_quest.get(todoURL)
+    responsetodo = requests.get(todoURL)
     tasks = responsetodo.json()
 
     completeTasks = 0
+    done = []
 
     for task in tasks:
-        if task['completed']:
+        if task.get('completed'):
+            done.append(task)
             completeTasks += 1
 
     print("Employee {} is done with tasks({}/{}):"
           .format(empNAME, completeTasks, len(tasks)))
 
-    for task in tasks:
-        if task['completed']:
-            print("\t " + task.get('title'))
+    for task in done:
+        print("\t {}".format(task.get('title')))
