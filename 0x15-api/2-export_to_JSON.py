@@ -11,9 +11,9 @@ from sys import argv
 
 if __name__ == "__main__":
     sessionquest = requests.Session()
-    USER_ID = argv[1]
+    userID = argv[1]
     baseURL = 'https://jsonplaceholder.typicode.com/users'
-    empURL = baseURL + '/' + USER_ID
+    empURL = baseURL + '/' + userID
     todoURL = empURL + '/todos'
 
     responsename = sessionquest.get(empURL)
@@ -22,17 +22,9 @@ if __name__ == "__main__":
     responsetodo = sessionquest.get(todoURL)
     tasks = responsetodo.json()
 
-    completeTasks = []
-    dictionary = {}
-
-    for task in tasks:
-        completeTasks.append(
-                {
-                    "task": task.get('title'),
-                    "completed": task.get('completed'),
-                    "username": userNAME,
-                })
-    dictionary[USER_ID] = completeTasks
-    jsonfile = USER_ID + ".json"
-    with open(jsonfile, 'w') as filename:
-        json.dump(dictionary, filename)
+    with open("{}.json".format(userID), 'w') as user_id:
+        json.dump({userID: [{
+            "task": task.get('title'),
+            "completed": task.get('completed'),
+            "username": userNAME
+            } for task in tasks]}, user_id)
