@@ -13,9 +13,9 @@ if __name__ == "__main__":
     userID = argv[1]
     baseURL = 'https://jsonplaceholder.typicode.com/users'
     userNAME = requests.get('https://jsonplaceholder.typicode.com/users/{}'
-            .format(userID)).json()
+                            .format(userID)).json()
     tasks = requests.get('https://jsonplaceholder.typicode.com/todos?userId={}'
-            .format(argv[1])).json()
+                         .format(argv[1])).json()
 
     with open("{}.json".format(userID), "w") as USER_ID:
         json.dump({userID: [{
