@@ -13,13 +13,13 @@ from sys import argv
 if __name__ == "__main__":
 
     sessionquest = requests.Session()
-    USER_ID = argv[1]
+    empID = argv[1]
     baseURL = 'https://jsonplaceholder.typicode.com/users'
-    empURL = baseURL + '/' + USER_ID
+    empURL = baseURL + '/' + empID
     todoURL = empURL + '/todos'
 
     responsename = sessionquest.get(empURL)
-    USERNAME = responsename.json()['name']
+    userNAME = responsename.json()['username']
 
     responsetodo = sessionquest.get(todoURL)
     tasks = responsetodo.json()
@@ -32,12 +32,11 @@ if __name__ == "__main__":
             done.append(task)
             completeTasks += 1
 
-    employeeCSV = USER_ID + '.csv'
+    employeeCSV = empID + '.csv'
 
-    with open(employeeCSV, "w", newline='') as f:
-        writer = csv.writer(f, delimiter=',', quoting=csv.QUOTE_ALL)
+    with open(employeeCSV, "w", newline='') as USER_ID:
+        writer = csv.writer(USER_ID, delimiter=',', quoting=csv.QUOTE_ALL)
         for t in tasks:
-            TASK_COMPLETED_STATUS = t.get('completed')
-            TASK_TITLE = t.get('title')
-            writer.writerow([USER_ID, USERNAME, TASK_COMPLETED_STATUS,
-                            TASK_TITLE])
+            taskcompleted = t.get('completed')
+            tasktitle = t.get('title')
+            writer.writerow([empID, userNAME, taskcompleted, tasktitle])
