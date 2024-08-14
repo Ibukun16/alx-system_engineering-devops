@@ -39,9 +39,10 @@ def count_words(subreddit, word_list, hot_list=[], after=None):
                            for inst in data.get("children", [])]
     return count_words(subreddit, word_list, hot_list, after)
 
+
 def print_results(word_list, hot_list):
     """Function that prints request results"""
-    count ={}
+    count = {}
     for w in word_list:
         count[w] = 0
     for title in hot_list:
@@ -52,8 +53,4 @@ def print_results(word_list, hot_list):
     count = {k: v in k, v in count.items() if v > 0}
     words = sorted(list(count.keys()))
     for word in sorted(words, reverse=True, key=lambda k: count[k]):
-        print(f"{word}: {count[word]}"))
-
-
-
-
+        print(f"{word}: {count[word]}")
