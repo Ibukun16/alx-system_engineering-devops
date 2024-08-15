@@ -2,6 +2,7 @@
 """A function that prints the titles of thr first 10 hot posts
 listed for a given reddit"""
 import requests
+import json
 
 
 def top_ten(subreddit):

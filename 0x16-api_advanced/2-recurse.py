@@ -4,6 +4,7 @@ A recursive function that queries the Reddit API and returns a list
 containing the titles of all hot articles for a given subreddit.
 """
 import requests
+import json
 after = None
 
 
@@ -11,7 +12,7 @@ def recurse(subreddit, hot_list=[]):
     """returning top posts titles recursively"""
     global after
     user = {"User-Agent": "api_advanced-project"}
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=100"
     param = {"after": after}
     response = requests.get(url, params: param, headers=user,
                             allow_redirects=False)
