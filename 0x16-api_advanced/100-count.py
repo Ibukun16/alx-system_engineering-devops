@@ -8,7 +8,7 @@ import json
 import requests
 
 
-def count_words(subreddit, word_list, after=None, counts=[]):
+def count_words(subreddit, word_list, after=None, counts={}):
     """this prints counts all words found in hot post of a sureddit
 
     Args:
@@ -18,9 +18,8 @@ def count_words(subreddit, word_list, after=None, counts=[]):
         word_list (dict): An array containing the list of top articles.
     """
     if not word_list or word_list == [] or not subreddit:
+        print("")
         return
-    if after == "":
-        counts = [0] * len(word_list)
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     user = {"User-Agent": "Google Chrome Version 127.0.6533.120"}
     params = {"limit": 100}
@@ -32,36 +31,20 @@ def count_words(subreddit, word_list, after=None, counts=[]):
         print("")
         return
     main_data = response.json()
+    data = main_data.get("data")
+    children = data.get("children")
+    for post in children:
+        title = post.get("data", {}).get("title").lower()
 
-    for topic in (main_data["data"]["children"]):
-        for word in topic["data"]["title"].split():
-            for r in range(len(word_list)):
-                if word_list[r].lower() == word.lower():
-                    counts[r] += 1
+    for word in word_list:
+        if word.lower() in title:
+            counts[word] = counts.get(word, 0) + title.counts(word.lower())
 
-    after = main_data["data"]["after"]
-    if after is None:
-        save = []
-        for r in range(len(word_list)):
-            for s in range(r + 1, len(word_list)):
-                if word_list[r].lower() == word_list[s].lower():
-                    save.append(s)
-                    counts[r] += counts[s]
-
-    for r in range(len(word_list)):
-        for s in range(r, len(word_list)):
-            if (counts[s] > counts[r] or
-                    (word_list[r] > word_list[s] and
-                        counts[s] == counts[r])):
-                tmp = counts[r]
-                counts[r] = counts[s]
-                counts[s] = tmp
-                tmp = word_list[r]
-                word_list[r] = word_list[s]
-                word_list[s] = tmp
-
-    for r in range(len(word_list)):
-        if (counts[r] > 0) and r not in save:
-            print(f"{word_list[r].lower()}: {counts[r]}")
-        else:
-            count_words(subreddit, word_list, after, count)
+    after = main_data.get("data", {}).get("after")
+    if after:
+        count_words(sureddit, word_list, after, counts)
+    else:
+        sort_counts = sorted(counts.items(),
+                             key=lambda k: (-k[1], k[0].lower()))
+        for word, value in sorted_counts:
+            print(f"{word.lower()}: {count}")
