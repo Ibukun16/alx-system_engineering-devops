@@ -2,6 +2,7 @@
 """A function that prints the titles of thr first 10 hot posts
 listed for a given reddit"""
 import requests
+import json
 
 
 def top_ten(subreddit):
@@ -10,7 +11,7 @@ def top_ten(subreddit):
     user = {"User-Agent": "Google Chrome Version  127.0.6533.120"}
     response = requests.get(url, headers=user, allow_redirects=False)
     if response.status_code == 200:
-        res = response.json().get("data").get("children")
-        [print(i.get("data").get("title")) for i in res]
+        res = response.json().get("data")
+        [print(i.get("data").get("title")) for i in res.get("children")]
     print("None")
     return
