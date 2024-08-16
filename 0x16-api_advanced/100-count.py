@@ -1,4 +1,4 @@
-#!/user/bin/python3
+#!/usr/bin/python3
 """A recursive function that queries the Reddit API,
 parses the title of all hot articles, and prints a sorted count
 of given keywords (case-insensitive, delimited by spaces.
@@ -8,14 +8,18 @@ import json
 import requests
 
 
+<<<<<<< HEAD
 def count_words(subreddit, word_list, after=None, count={}):
+=======
+def count_words(subreddit, word_list, after=None, counts={}):
+>>>>>>> 6946b67c81b16200b38de490f55f1376fce32fa6
     """this prints counts all words found in hot post of a sureddit
 
     Args:
         subreddit (str): The subreddit to search.
         word_list (list): The list of words to search for in post titles.
         after (str): The parameter for the next page of the API results.
-        hot_list (dict): An array containing the list of hot articles.
+        word_list (dict): An array containing the list of top articles.
     """
     if not word_list or word_list == [] or not subreddit:
         print("")
@@ -27,8 +31,6 @@ def count_words(subreddit, word_list, after=None, count={}):
                             allow_redirects=False)
     if after:
         params["after"] = after
-    response = requests.get(url, headers=user, params=params,
-                            allow_redirects=False)
     if response.status_code != 200:
         print("")
         return
