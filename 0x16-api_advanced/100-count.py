@@ -8,11 +8,7 @@ import json
 import requests
 
 
-<<<<<<< HEAD
 def count_words(subreddit, word_list, after=None, count={}):
-=======
-def count_words(subreddit, word_list, after=None, counts={}):
->>>>>>> 6946b67c81b16200b38de490f55f1376fce32fa6
     """this prints counts all words found in hot post of a sureddit
 
     Args:
