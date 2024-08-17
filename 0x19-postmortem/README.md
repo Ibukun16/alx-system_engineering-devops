@@ -1,0 +1,1 @@
+This project directory exemplify how to handle postmortem analysis enable people learn from an incident and how to conduct such analysis. The incident analyzed in this test case is hypothetical but similar to a real live incident. Postmortem analysis is required in every organization for growth and a good Software Engineer must know how to conduct such analysis
