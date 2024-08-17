@@ -5,7 +5,7 @@ containing the titles of all hot articles for a given subreddit.
 """
 import requests
 import json
-headers = {"User-Agent": "Google Chrome Version 127.0.6533.120"}
+
 
 def recurse(subreddit, hot_list=[], after="", count=0):
     """returning top posts titles recursively"""
