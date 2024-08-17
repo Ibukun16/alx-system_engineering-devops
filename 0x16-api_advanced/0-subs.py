@@ -5,7 +5,7 @@ import requests
 
 def number_of_subscribers(subreddit):
     """Return the total number of subscribers on a given reddit."""
-    url = f"https://oauthi.reddit.com/r/{subreddit}/about.json"
+    url = f"https://oauth.reddit.com/r/{subreddit}/about.json"
     user = {"User-Agent": "Google Chrome Version 127.0.6533.120"}
     response = requests.get(url, headers=user, allow_redirects=False)
     if response.status_code == 200:
