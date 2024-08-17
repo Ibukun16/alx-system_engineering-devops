@@ -9,10 +9,10 @@ def top_ten(subreddit):
     """Print the titles of the 10 hottest posts on agiven subreddit."""
     url = f"https://www.reddit.com/r/{subreddit}/hot/.json?limit=10"
     user = {
-        "User-Agent": "Google Chrome Version 127.0.6533.120"
-        }
+        "User-Agent": "linux:0x16.api.advanced:v2.3.0 (by /u/Ibukun16)"
+    }
     response = requests.get(url, headers=user, allow_redirects=False)
-    if response.status_code != 404:
+    if response.status_code != 200:
         print("None")
         return
     res = response.json().get("data")
