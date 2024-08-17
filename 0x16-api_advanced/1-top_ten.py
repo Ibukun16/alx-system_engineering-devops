@@ -7,12 +7,13 @@ import json
 
 def top_ten(subreddit):
     """Print the titles of the 10 hottest posts on agiven subreddit."""
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
-    user = {"User-Agent": "Google Chrome Version 127.0.6533.120"}
+    url = f"https://www.reddit.com/r/{subreddit}/hot/.json?limit=10"
+    user = {
+        "User-Agent": "Google Chrome Version 127.0.6533.120"
+        }
     response = requests.get(url, headers=user, allow_redirects=False)
-    if response.status_code == 200:
-        res = response.json().get("data")
-        [print(i.get("data").get("title")) for i in res.get("children")]
+    if response.status_code != 200:
+        print("None")
         return
-    print("None")
-    return
+    res = response.json().get("data")
+    [print(c.get("data").get("title")) for c in res.get("children")]
