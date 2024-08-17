@@ -12,7 +12,7 @@ def top_ten(subreddit):
         "User-Agent": "Google Chrome Version 127.0.6533.120"
         }
     response = requests.get(url, headers=user, allow_redirects=False)
-    if response.status_code != 200:
+    if response.status_code != 404:
         print("None")
         return
     res = response.json().get("data")
