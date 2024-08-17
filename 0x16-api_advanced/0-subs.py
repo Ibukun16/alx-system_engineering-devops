@@ -6,7 +6,7 @@ import json
 
 def number_of_subscribers(subreddit):
     """Return the total number of subscribers on a given reddit."""
-    url = f"https://oauth.reddit.com/r/{subreddit}/about.json"
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
     user = {
         "User-Agent": "linux:0x16.api.advanced:v20.4.49 (by /u/Ibukun16)"
     }
