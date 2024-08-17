@@ -6,9 +6,14 @@ import json
 
 def number_of_subscribers(subreddit):
     """Return the total number of subscribers on a given reddit."""
-    url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    user = {"User-Agent": "Google Chrome Version 127.0.6533.120"}
-    response = requests.get(url, headers=user, allow_redirects=False)
-    if response.status_code == 200:
+    url = f"https://oauth.reddit.com/r/{subreddit}/about.json"
+    user = {
+        "User-Agent": "linux:0x16.api.advanced:v20.4.49 (by /u/Ibukun16)"
+    }
+    try:
+        response = requests.get(url, headers=user, allow_redirects=False)
+        response.raise_for_status()
+
         return response.json().get("data").get("subscribers")
-    return 0
+    except requests.exceptions.RequestException:
+        return 0
