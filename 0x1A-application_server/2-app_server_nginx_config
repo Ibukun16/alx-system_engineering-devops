@@ -1,9 +1,9 @@
 server {
 	listen 80 default_server;
-	listen [::]:80 ipv6only=on default_server;
+	listen [::]:80 default_server ipv6only=on;
 	
 	# Use IP of server as domain name
-	server_name localhost;
+	server_name 520156-web-01;
 
 	# Customize HTTP response header
 	add_header  X-Served-By 520156-web-01;
@@ -17,15 +17,15 @@ server {
 	index index.html index.htm index.nginx-debian.html;
 	rewrite ^/redirect_me https://github.com/Ibukun16 permanent;
 
-	error_page 404 /404.html;
+	error_page 404 /error_404.html;
 
-	location = /404.html {
-		root /usr/share/nginx/html;
+	location = /error_404.html {
+		root /var/www/html;
 		internal;
 	}
 
 	location /airbnb-onepage/ {
-                proxy_pass http://0.0.0.0:5000/airbnb-onepage/;
+                proxy_pass http://127.0.0.1:5000/airbnb-onepage/;
         }
 
 	location / {
