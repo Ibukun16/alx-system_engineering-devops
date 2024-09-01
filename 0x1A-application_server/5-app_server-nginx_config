@@ -12,8 +12,9 @@ server {
         # Custom header page
         add_header X-Served-By 520156-web-01;
 
-        location /hbnb_static {
-                alias /data/web_static/current/;
+	# Serves the static assets for AirBnB_clone_v4
+        location /static/ {
+                alias /home/ubuntu/AirBnB_clone_v4/web_dynamic/static/;
         }
         location / {
                 # First attempt to serve request as file, then
@@ -21,7 +22,7 @@ server {
                 try_files $uri $uri/ =404;
         }
         location /airbnb-onepage {
-                proxy_pass http://127.0.0.1:5000/airbnb-onepage;
+                proxy_pass http://127.0.0.1:5000/airbnb-onepage/;
         }
         location ~ /airbnb-dynamic/number_odd_or_even/(\d+)$ {
                 proxy_pass http://127.0.0.1:5001/number_odd_or_even/$1;
@@ -32,15 +33,8 @@ server {
 
 	# Configure /2-hbnb route of AirBnB_clone_v4 as root location
 	location / {
-		proxy_pass http://127.0.0.1:5003/2-hbnb;
+		proxy_pass http://127.0.0.1:5003/2-hbnb/;
 	}
-
-	# Serves the static assets for AirBnB_clone_v4
-    	location /static/ {
-        	proxy_pass http://127.0.0.1:5003;
-	}
-
-	error_page 404 /4
 
         rewrite ^/redirect_me https://github.com/Ibukun16 permanent;
         error_page 404 /error_404.html;
